@@ -1,29 +1,35 @@
-class Student {
-    
-    String name;
-    int rollNumber;
-    String department;
+class ExamTask implements Runnable {
+    private String activity;
+    private int delay;
 
-
-    public Student(String name, int rollNumber, String department) {
-        this.name = name;
-        this.rollNumber = rollNumber;
-        this.department = department;
+    public ExamTask(String activity, int delay) {
+        this.activity = activity;
+        this.delay = delay;
     }
 
-    
-    public void displayDetails() {
-        System.out.println("--- Student Details ---");
-        System.out.println("Name       : " + name);
-        System.out.println("Roll No    : " + rollNumber);
-        System.out.println("Department : " + department);
+    @Override
+    public void run() {
+        try {
+            for (int i = 1; i <= 3; i++) {
+                System.out.println(Thread.currentThread().getName() + " -> " + activity);
+                Thread.sleep(delay);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
-    
-        Student student1 = new Student("Alex Morgan", 101, "Computer Science");
+        Thread t1 = new Thread(new ExamTask("Displaying remaining time", 1000));
+        Thread t2 = new Thread(new ExamTask("Auto-saving answers", 2000));
+        Thread t3 = new Thread(new ExamTask("Checking network connection", 3000));
 
-        
-        student1.displayDetails();
+        t1.setName("TimerThread");
+        t2.setName("AutoSaveThread");
+        t3.setName("NetworkThread");
+
+        t1.start();
+        t2.start();
+        t3.start();
     }
 }
