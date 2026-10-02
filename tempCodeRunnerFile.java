@@ -1,1 +1,1 @@
-MultiplicationTable
+CourseManagement
