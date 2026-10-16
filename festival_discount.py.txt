@@ -1,0 +1,15 @@
+def discount(price):
+    return price * 0.8 if price > 1000 else price
+
+prices = [500, 1200, 2000, 800]
+
+
+discounted = list(map(discount, prices))
+print("Discounted:", discounted)
+
+
+eligible = list(filter(lambda p: p > 1000, prices))
+print("Eligible:", eligible)
+
+
+print("Pure functions avoid modifying the original list; they return new values instead.")
